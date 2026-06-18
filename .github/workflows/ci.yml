@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout do codigo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -26,7 +26,7 @@ jobs:
         run: npm run lint
 
       - name: Rodar testes de unidade e cobertura
-        run: npm test -- --forceExit
+        run: npm test
 
       - name: Instalar Chrome para Selenium
         uses: browser-actions/setup-chrome@v1
@@ -35,7 +35,7 @@ jobs:
         run: npm start &
 
       - name: Aguardar aplicacao iniciar
-        run: sleep 5
+        run: sleep 10
 
       - name: Rodar teste Selenium
         run: node test/selenium.test.js
