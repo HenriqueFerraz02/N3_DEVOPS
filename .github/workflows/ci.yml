@@ -28,6 +28,9 @@ jobs:
       - name: Rodar testes de unidade e cobertura
         run: npm test -- --forceExit
 
+      - name: Scan de dependencias (npm audit)
+        run: npm audit --audit-level=high || true
+
       - name: Instalar Chrome para Selenium
         uses: browser-actions/setup-chrome@v1
 
@@ -39,3 +42,6 @@ jobs:
 
       - name: Rodar teste Selenium
         run: node test/selenium.test.js
+
+      - name: Build da imagem Docker
+        run: docker build -t n3-devops .
