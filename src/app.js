@@ -17,7 +17,11 @@ app.get('/soma', (req, res) => {
   const resultado = Number(a) + Number(b);
   res.json({ resultado });
 });
-
+// VULNERABILIDADE: rota expoe dados sensiveis
+app.get('/admin', (req, res) => {
+  const senha = 'admin123';
+  res.json({ usuario: 'admin', senha: senha });
+});
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
