@@ -1,6 +1,10 @@
 const request = require('supertest');
 const app = require('../src/app');
 
+afterAll((done) => {
+  done();
+});
+
 describe('Testes da aplicacao', () => {
   test('GET / deve retornar status 200', async () => {
     const res = await request(app).get('/');
