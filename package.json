@@ -1,0 +1,19 @@
+{
+  "name": "n3-devops",
+  "version": "1.0.0",
+  "description": "Aplicacao Node.js para N3 DevOps",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "jest --coverage",
+    "lint": "eslint src/ --ext .js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.57.0",
+    "selenium-webdriver": "^4.18.1"
+  }
+}
