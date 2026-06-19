@@ -1,0 +1,47 @@
+name: CI - Continuous Integration
+
+on:
+  push:
+    branches: [develop, feature/**]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Analise de codigo estatico (ESLint)
+        run: npm run lint
+
+      - name: Rodar testes de unidade e cobertura
+        run: npm test
+
+      - name: Scan de dependencias (npm audit)
+        run: npm audit --audit-level=high || true
+
+      - name: Instalar Chrome para Selenium
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Iniciar aplicacao em background
+        run: npm start &
+
+      - name: Aguardar aplicacao iniciar
+        run: sleep 10
+
+      - name: Rodar teste Selenium
+        run: node test/selenium.test.js
+
+      - name: Build da imagem Docker
+        run: docker build -t n3-devops .
